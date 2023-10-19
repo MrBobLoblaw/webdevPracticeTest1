@@ -4,8 +4,7 @@ import "./multiple.css";
 export default function Multiple() {
   const [formData, setFormData] = useState({
     name: "",
-    email: "",
-    message: "",
+    description: "",
   });
 
   const handleChange = (event) => {
@@ -16,16 +15,22 @@ export default function Multiple() {
   const handleSubmit = (event) => {
     event.preventDefault();
     alert(
-      `Name: ${formData.name}, Email: ${formData.email}, Message: ${formData.message}`
+      `The new shop is called: ${formData.name}, Additional Information: ${formData.description}`
     );
   };
 
+  const handleCancel = (event) => {
+    setFormData({ name: "", description: "", });
+  }
+
   return (
-    <form onSubmit={handleSubmit} className="multiple">
-      <label className="multiple__text" htmlFor="name">
-        Name:
-      </label>
+    <form onSubmit={handleSubmit} onCancel={handleCancel} className="multiple">
+      <h1 className="multiple__header">
+        New Shop
+      </h1>
+
       <input
+        placeholder="Name"
         type="text"
         id="name"
         className="multiple__input"
@@ -34,31 +39,20 @@ export default function Multiple() {
         onChange={handleChange}
       />
 
-      <label className="multiple__text" htmlFor="email">
-        Email:
-      </label>
-      <input
-        type="email"
-        id="email"
-        className="multiple__input"
-        name="email"
-        value={formData.email}
-        onChange={handleChange}
-      />
-
-      <label className="multiple__text" htmlFor="message">
-        Message:
-      </label>
       <textarea
-        id="message"
+        placeholder="Description"
+        id="description"
         className="multiple__textarea"
-        name="message"
-        value={formData.message}
+        name="description"
+        value={formData.description}
         onChange={handleChange}
       />
 
-      <button className="multiple__button" type="submit">
+      <button className="multiple__button__submit" type="submit">
         Submit
+      </button>
+      <button className="multiple__button__cancel" type="button" onClick={handleCancel}>
+        Cancel
       </button>
     </form>
   );
